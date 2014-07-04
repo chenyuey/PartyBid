@@ -1,0 +1,16 @@
+<header>
+    活动列表
+
+    <div class="header-right">
+        <button ng-click="btnCreateActivity()" class="btn btn-primary btn-lg">创建活动</button>
+    </div>
+
+</header>
+    <div class="row">
+        <table class="table table-striped" ng-repeat="activity in activities">
+            <tr class="col-sm-5 col-md-6">
+                <td class="{{activity.status}}" ng-click="jumpToBM(activity)"><h3>{{activity.name}}</h3></td>
+            </tr>
+        </table>
+    </div>
+
