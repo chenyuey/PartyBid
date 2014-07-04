@@ -25,36 +25,48 @@ angular.module('partyBidApp')
         {
             $scope.btnReturnShow = false;
         }
-
-        $scope.haha = function(){
-            $scope.reminder = false;
-            if($scope.activityname.length == 0)
-            {
-                $scope.btnstatus = true;
-            }else
-            {
-                for(var i = 0;i < activities.length;i ++)
-                {
-                    if(activities[i] == $scope.activityname)
-                    {
-                        $scope.reminder = true;
-                    }
-                }
-                $scope.btnstatus = false;
-            }
+        $scope.inputstatus = function()
+        {
+            inputstatus($scope,activities);
         }
+
         $scope. btnclick = function(){
-            var activityname = $scope.activityname;
-            var activity = {name : activityname ,status :''};
-            activities.unshift(activity);
-            localStorage.setItem("activities",JSON.stringify(activities));
-
-            var formActivity =  {name : activityname};
-            localStorage.setItem("fromActivityIn",JSON.stringify(formActivity));
-
-            $location.path('signup');
+            createBtnClick($scope,$location,activities);
         }
+
         $scope.btnReturnList = function(){
             $location.path('activityList');
         }
     });
+
+function inputstatus ($scope,activities)
+{
+    $scope.reminder = false;
+    if($scope.activityname.length == 0)
+    {
+        $scope.btnstatus = true;
+    }else
+    {
+        for(var i = 0;i < activities.length;i ++)
+        {
+            if(activities[i].name == $scope.activityname)
+            {
+                $scope.reminder = true;
+            }
+        }
+        $scope.btnstatus = false;
+    }
+}
+
+function createBtnClick ($scope,$location,activities)
+{
+    var activityname = $scope.activityname;
+    var activity = {name : activityname ,status :''};
+    activities.unshift(activity);
+    localStorage.setItem("activities",JSON.stringify(activities));
+
+    var formActivity =  {name : activityname};
+    localStorage.setItem("fromActivityIn",JSON.stringify(formActivity));
+
+    $location.path('signup');
+}

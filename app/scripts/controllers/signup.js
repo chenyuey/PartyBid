@@ -17,66 +17,98 @@ angular.module('partyBidApp')
             'AngularJS',
             'Karma'
         ];
-        var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-        var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
-        //如果进入的活动是开始报名的活动，显示结束按钮
-        if(bmActivity.length != 0 && bmActivity[0].isStart == true)
-        {
-            if(fromActivityIn.name == bmActivity[0].name)
-            {
-                $scope.apply_status = '1';
-            }else if(fromActivityIn.name != bmActivity[0].name)
-            {
-                $scope.apply_status = '2';
-            }
-        }
+        dealRightBtnStatus($scope);
 
-        if($scope.apply_status === undefined)
-        {
-            $scope.apply_status = '0';
-        }
+
         //返回按钮
         $scope.btnReturn = function(){
-            var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-            //没有点击开始按钮
-            if(bmActivity.length != 0 && bmActivity[0].isStart == false)
-            {
-                localStorage.removeItem("bmActivity");
-            }
-            localStorage.removeItem("fromActivityIn");
-            $location.path('activityList');
+            btnReturn($location);
         }
+
         //活动开始报名按钮
          $scope.btnStart = function(){
-             $scope.apply_status = '1';
-             //将此活动保存到本地，为键值
-             var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-             if(bmActivity.length == 0)
-             {
-                 var fromAct = {name :JSON.parse(localStorage.getItem('fromActivityIn')).name,isStart :false};
-                 bmActivity.push(fromAct) ;
-             }
-             bmActivity[0].isStart = true;
-             localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
+             btnStart($scope);
          }
         $scope.btnEnd = function(){
-            $scope.apply_status = '0';
-            var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-            bmActivity[0].isStart = false;
-            localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
+            btnEnd($scope);
         }
 
         //显示报名信息
         //判断报名信息是否为当前活动
-        var messages = JSON.parse(localStorage.getItem('messages'))||[];
-        var activityMessages = [];
-        for(var i = 0 ; i < messages.length ; i ++)
-        {
-            var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
-            if(fromActivityIn.length != 0 && messages[i].activity == fromActivityIn.name)
-            {
-                activityMessages.unshift(messages[i]);
-            }
-        }
-        $scope.messages = activityMessages;
+        bmMessageDeal($scope);
     });
+
+
+function btnReturn($location)
+{
+    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    //没有点击开始按钮
+    if(bmActivity.length != 0 && bmActivity[0].isStart == false)
+    {
+        localStorage.removeItem("bmActivity");
+    }
+    localStorage.removeItem("fromActivityIn");
+    $location.path('activityList');
+}
+
+function btnStart($scope)
+{
+    $scope.apply_status = '1';
+    //将此活动保存到本地，为键值
+    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    if(bmActivity.length == 0)
+    {
+        var fromAct = {name :JSON.parse(localStorage.getItem('fromActivityIn')).name,isStart :false};
+        bmActivity.push(fromAct) ;
+    }
+    bmActivity[0].isStart = true;
+    localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
+}
+
+function btnEnd($scope)
+{
+    if(confirm("是否要结束报名") == true)
+    {
+        $scope.apply_status = '0';
+        var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+        bmActivity[0].isStart = false;
+        localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
+    }
+}
+
+function bmMessageDeal($scope)
+{
+    var messages = JSON.parse(localStorage.getItem('messages'))||[];
+    var activityMessages = [];
+    for(var i = 0 ; i < messages.length ; i ++)
+    {
+        var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
+        if(fromActivityIn.length != 0 && messages[i].activity == fromActivityIn.name)
+        {
+            activityMessages.unshift(messages[i]);
+        }
+    }
+    $scope.messages = activityMessages;
+}
+
+function dealRightBtnStatus($scope)
+{
+    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
+    //如果进入的活动是开始报名的活动，显示结束按钮
+    if(bmActivity.length != 0 && bmActivity[0].isStart == true)
+    {
+        if(fromActivityIn.name == bmActivity[0].name)
+        {
+            $scope.apply_status = '1';
+        }else if(fromActivityIn.name != bmActivity[0].name)
+        {
+            $scope.apply_status = '2';
+        }
+    }
+
+    if($scope.apply_status === undefined)
+    {
+        $scope.apply_status = '0';
+    }
+}

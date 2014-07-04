@@ -15,10 +15,10 @@ angular.module('partyBidApp')
             'Karma'
         ];
 
-        var messages = JSON.parse(localStorage.getItem('messages'))||[];
-        console.log(messages.length);
+        var activities = JSON.parse(localStorage.getItem('activities'))||[];
+        console.log(activities.length);
 
-        if(messages.length == 0)
+        if(activities.length == 0)
         {
             console.log(0);
             $location.path('create');
