@@ -19,11 +19,6 @@ var native_accessor = {
 }
 
 
-
 function notify_message_received(message_json) {
-    //console.log(JSON.stringify(message_json));
-    //JSON.stringify(message_json);
-    //alert(JSON.stringify(message_json.messages));
     native_accessor.receive_message(message_json);
-    //phone_number=message_json.messages[0].phone;
 }

@@ -1,4 +1,7 @@
 <!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <html class="no-js">
   <head>
     <meta charset="utf-8">
@@ -20,26 +23,13 @@
     <!-- endbuild -->
   </head>
   <body ng-app="partyBidApp">
-    <!--[if lt IE 7]>
-      <!--<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>-->
-    <![endif]-->
 
-    <!-- Add your site or application content here -->
     <div class="container-fluid">
-      <!--<div class="header">-->
-        <!--<ul class="nav nav-pills pull-right">-->
-          <!--<!--<li class="active"><a ng-href="#">Home</a></li>-->-->
-          <!--<!--<li><a ng-href="#/about">About</a></li>-->-->
-          <!--<!--<li><a ng-href="#">Contact</a></li>-->-->
-        <!--</ul>-->
-        <!--<!--<h3 class="text-muted">partyBid</h3>-->-->
-      <!--</div>-->
+
 
       <div ng-view=""></div>
 
-      <!--<div class="footer">-->
-        <!--<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>-->
-      <!--</div>-->
+
     </div>
 
 
@@ -75,14 +65,39 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/underscore.js"></script>
+        <script src="scripts/js/cordova/cordova-2.1.0.js"></script>
+
+        <script src="scripts/js/angular/mobile-nav.min.js"></script>
+        <script src="scripts/js/zepto/zepto.js"></script>
+        <script src="scripts/js/infrastructure/native.js"></script>
+        <script src="scripts/js/jt-logic.js/conditions.js"></script>
+        <script src="scripts/js/jt-logic.js/relations.js"></script>
+        <script src="scripts/js/jt-logic.js/would.js"></script>
+        <script src="scripts/js/jt-notify.js/notify.js"></script>
+        <script src="scripts/js/jt/jt.js"></script>
+        <script src="scripts/js/jt/JTObject.js"></script>
+        <script src="scripts/mobile.js"></script>
         <script src="scripts/app.js"></script>
+
+
+
+
+        <script src="scripts/application.js"></script>
+
+
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/create.js"></script>
         <script src="scripts/controllers/activityList.js"></script>
         <script src="scripts/controllers/signup.js"></script>
+    <script src="scripts/shrotmessage.js"></script>
         <script src="scripts/sms.js"></script>
-        <script src="scripts/shrotmessage.js"></script>
+
+
+
+
+
         <!-- endbuild -->
 </body>
 </html>

@@ -1,4 +1,4 @@
-<header>
+<header id="signuprefresh">
     报名{{'('+messages.length+'人)'}}
 
     <div class="header-left">
@@ -11,10 +11,26 @@
     </div>
 </header>
 <div class="row">
+    <hr>
         <table class="table table-striped" ng-repeat="message in messages">
-            <tr class="col-sm-5 col-md-6">
-                <td>{{message.name}}</td>
-                <td>{{message.phone}}</td>
-            </tr>
-        </table>
+
+    <tr class="col-sm-5 col-md-6">
+        <td width="160px">{{message.name}}</td>
+        <td>{{message.phone}}</td>
+
+    </tr>
+</table>
 </div>
+
+<footer>
+    <ul class="footer-nav footer-nav-2tabs">
+
+            <li>
+                <button ng-tap="btnSignup()" class="btn-style btn-4">报名</button>
+            </li>
+            <li>
+                <button ng-tap="btnBid()" class="btn-style btn-4">竞价</button>
+            </li>
+
+    </ul>
+</footer>

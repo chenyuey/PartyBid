@@ -19,6 +19,7 @@ angular.module('partyBidApp')
         ];
         dealRightBtnStatus($scope);
 
+        bmMessageDeal($scope);
 
         //返回按钮
         $scope.btnReturn = function(){
@@ -33,9 +34,6 @@ angular.module('partyBidApp')
             btnEnd($scope);
         }
 
-        //显示报名信息
-        //判断报名信息是否为当前活动
-        bmMessageDeal($scope);
     });
 
 
@@ -78,14 +76,16 @@ function btnEnd($scope)
 
 function bmMessageDeal($scope)
 {
-    var messages = JSON.parse(localStorage.getItem('messages'))||[];
+    var sms = JSON.parse(localStorage.getItem('messages'))||[];
+
     var activityMessages = [];
-    for(var i = 0 ; i < messages.length ; i ++)
+    for(var i = 0 ; i < sms.length ; i ++)
     {
         var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
-        if(fromActivityIn.length != 0 && messages[i].activity == fromActivityIn.name)
+
+        if(fromActivityIn.length != 0 && sms[i].activity == fromActivityIn.name)
         {
-            activityMessages.unshift(messages[i]);
+            activityMessages.unshift(sms[i]);
         }
     }
     $scope.messages = activityMessages;
