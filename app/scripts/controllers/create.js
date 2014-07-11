@@ -19,7 +19,7 @@ angular.module('partyBidApp')
         ];
         $scope.btnstatus = true;
 
-        var activities = JSON.parse(localStorage.getItem('activities'))||[];
+        var activities = Activity.activities();
         $scope.btnReturnShow = true;
         if(activities.length == 0)
         {
@@ -31,7 +31,7 @@ angular.module('partyBidApp')
         }
 
         $scope. btnclick = function(){
-            createBtnClick($scope,$location,activities);
+            createBtnClick($scope,$location);
         }
 
         $scope.btnReturnList = function(){
@@ -58,15 +58,15 @@ function inputstatus ($scope,activities)
     }
 }
 
-function createBtnClick ($scope,$location,activities)
+function createBtnClick ($scope,$location)
 {
     var activityname = $scope.activityname;
-    var activity = {name : activityname ,status :''};
-    activities.unshift(activity);
-    localStorage.setItem("activities",JSON.stringify(activities));
 
-    var formActivity =  {name : activityname};
-    localStorage.setItem("fromActivityIn",JSON.stringify(formActivity));
+    var activity = new Activity(activityname,'');
+    activity.insert_activity();
+
+    var fromActivity = new FromActivityIn(activityname);
+    fromActivity.addActivityName();
 
     $location.path('signup');
 }

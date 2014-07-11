@@ -20,7 +20,7 @@ angular.module('partyBidApp')
 
         //开始报名的活动
         var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-        var activities = JSON.parse(localStorage.getItem('activities'))||[];
+        var activities = Activity.activities();
         $scope.activities = dealBMActivityBGC(bmActivity,activities);
 
         $scope. btnCreateActivity = function(){

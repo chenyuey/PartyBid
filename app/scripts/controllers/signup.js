@@ -39,13 +39,13 @@ angular.module('partyBidApp')
 
 function btnReturn($location)
 {
-    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    var bmActivity = BMingActivity.bmactivity();
     //没有点击开始按钮
     if(bmActivity.length != 0 && bmActivity[0].isStart == false)
     {
-        localStorage.removeItem("bmActivity");
+        BMingActivity.remove_bm_activity();
     }
-    localStorage.removeItem("fromActivityIn");
+    FromActivityIn.removeactivityin();
     $location.path('activityList');
 }
 
@@ -53,10 +53,10 @@ function btnStart($scope)
 {
     $scope.apply_status = '1';
     //将此活动保存到本地，为键值
-    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    var bmActivity = BMingActivity.bmactivity();
     if(bmActivity.length == 0)
     {
-        var fromAct = {name :JSON.parse(localStorage.getItem('fromActivityIn')).name,isStart :false};
+        var fromAct = {name :FromActivityIn.fromactivityin().name,isStart :false};
         bmActivity.push(fromAct) ;
     }
     bmActivity[0].isStart = true;
@@ -68,7 +68,7 @@ function btnEnd($scope)
     if(confirm("是否要结束报名") == true)
     {
         $scope.apply_status = '0';
-        var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+        var bmActivity = BMingActivity.bmactivity();
         bmActivity[0].isStart = false;
         localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
     }
@@ -81,7 +81,7 @@ function bmMessageDeal($scope)
     var activityMessages = [];
     for(var i = 0 ; i < sms.length ; i ++)
     {
-        var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
+        var fromActivityIn = FromActivityIn.fromactivityin();
 
         if(fromActivityIn.length != 0 && sms[i].activity == fromActivityIn.name)
         {
@@ -93,8 +93,8 @@ function bmMessageDeal($scope)
 
 function dealRightBtnStatus($scope)
 {
-    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
-    var fromActivityIn = JSON.parse(localStorage.getItem('fromActivityIn'))||[];
+    var bmActivity = BMingActivity.bmactivity();;
+    var fromActivityIn = FromActivityIn.fromactivityin();
     //如果进入的活动是开始报名的活动，显示结束按钮
     if(bmActivity.length != 0 && bmActivity[0].isStart == true)
     {
