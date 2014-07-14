@@ -70,7 +70,7 @@ function btnEnd($scope)
         $scope.apply_status = '0';
         var bmActivity = BMingActivity.bmactivity();
         bmActivity[0].isStart = false;
-        localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
+        BMingActivity.set_item(bmActivity);
     }
 }
 

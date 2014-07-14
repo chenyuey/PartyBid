@@ -15,6 +15,6 @@ BMingActivity.remove_bm_activity = function()
 {
     localStorage.removeItem("bmActivity");
 }
-BMingActivity.prototype.set_item = function(){
-    localStorage.setItem("bmActivity",JSON.stringify(this));
+BMingActivity.set_item = function(bmActivity){
+    localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
 }
