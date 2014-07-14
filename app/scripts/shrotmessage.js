@@ -24,13 +24,13 @@ function parseJson (json_message)
         if(firstBMSMS(json_message,messages,message) == false)
         {
             var isExist = false;
-            for(var i = 0;i < messages.length;i ++)
+            if(_.find(messages,function(message){
+                return message.phone == json_message.messages[0].phone && message.activity == bmActivity[0].name;
+            }))
             {
-                if(messages[i].phone == json_message.messages[0].phone && messages[i].activity == bmActivity[0].name)
-                {
-                    isExist = true;
-                }
+                isExist = true;
             }
+
             if(insert_sms_return_sms(json_message,message,isExist) == false)
             {
                 native_accessor.send_sms(json_message.messages[0].phone,'已经报过名！');
@@ -41,6 +41,7 @@ function parseJson (json_message)
     }
 
 }
+
 //数据库里没有短信时
 function firstBMSMS(json_message,messages,message){
     if(messages.length == 0)
@@ -77,3 +78,4 @@ function refreshSignupView()
         })
     }
 }
+
