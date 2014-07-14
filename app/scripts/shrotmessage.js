@@ -1,8 +1,8 @@
 function parseJson (json_message)
 {
-    var messages = JSON.parse(localStorage.getItem('messages'))||[];
+    var messages = ShortMessage.getShortMessages();
     //正在报名的活动
-    var bmActivity = JSON.parse(localStorage.getItem('bmActivity'))||[];
+    var bmActivity = BMingActivity.bmactivity();
 
     //有开始报名的活动
     //去掉报名信息中的空格
@@ -19,16 +19,9 @@ function parseJson (json_message)
     }else if( message_content.search(/bm|BM|bM|Bm/i) == 0)
     {
         //存储在正在报名的活动
-        var message = {name : message_name , phone :json_message.messages[0].phone ,activity :bmActivity[0].name};
-        if(messages.length == 0)
-        {
-            messages.unshift(message);
-            localStorage.setItem("messages",JSON.stringify(messages));
-            console.log('报名成功！');
-            native_accessor.send_sms(json_message.messages[0].phone,'报名成功！');
-            refreshSignupView();
-        }
-        else
+        var message = new ShortMessage(message_name,json_message.messages[0].phone,bmActivity[0].name);
+
+        if(firstBMSMS(json_message,messages,message) == false)
         {
             var isExist = false;
             for(var i = 0;i < messages.length;i ++)
@@ -38,14 +31,7 @@ function parseJson (json_message)
                     isExist = true;
                 }
             }
-            if(isExist == false)
-            {
-                messages.push(message);
-                localStorage.setItem("messages",JSON.stringify(messages));
-                native_accessor.send_sms(json_message.messages[0].phone,'报名成功！');
-                console.log('报名成功！');
-                refreshSignupView();
-            }else
+            if(insert_sms_return_sms(json_message,message,isExist) == false)
             {
                 native_accessor.send_sms(json_message.messages[0].phone,'已经报过名！');
                 console.log('已经报过名！');
@@ -55,6 +41,31 @@ function parseJson (json_message)
     }
 
 }
+//数据库里没有短信时
+function firstBMSMS(json_message,messages,message){
+    if(messages.length == 0)
+    {
+        message.insert_message();
+        console.log('报名成功！');
+        native_accessor.send_sms(json_message.messages[0].phone,'报名成功！');
+        refreshSignupView();
+        return true;
+    }
+    return false;
+}
+//如果数据库里没有存在相同活动的相同手机号，则插入一条短信
+function insert_sms_return_sms(json_message,message,isExist){
+    if(isExist == false)
+    {
+        message.insert_message();
+        native_accessor.send_sms(json_message.messages[0].phone,'报名成功！');
+        console.log('报名成功！');
+        refreshSignupView();
+        return true;
+    }
+    return false;
+}
+//刷新signup页面
 function refreshSignupView()
 {
     var signUp = document.getElementById("signuprefresh");

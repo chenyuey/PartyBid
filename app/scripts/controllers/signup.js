@@ -76,7 +76,7 @@ function btnEnd($scope)
 
 function bmMessageDeal($scope)
 {
-    var sms = JSON.parse(localStorage.getItem('messages'))||[];
+    var sms = ShortMessage.getShortMessages();
 
     var activityMessages = [];
     for(var i = 0 ; i < sms.length ; i ++)
@@ -93,7 +93,7 @@ function bmMessageDeal($scope)
 
 function dealRightBtnStatus($scope)
 {
-    var bmActivity = BMingActivity.bmactivity();;
+    var bmActivity = BMingActivity.bmactivity();
     var fromActivityIn = FromActivityIn.fromactivityin();
     //如果进入的活动是开始报名的活动，显示结束按钮
     if(bmActivity.length != 0 && bmActivity[0].isStart == true)
