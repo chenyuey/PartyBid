@@ -34,8 +34,8 @@ angular.module('partyBidApp')
 function jumpToBMLoc ($location,bmActivity,activity)
 {
     //将进入的活动保存到本地
-    var formActivity =  {name : activity.name};
-    localStorage.setItem("fromActivityIn",JSON.stringify(formActivity));
+    var formActivity = new FromActivityIn(activity.name);
+    formActivity.addActivityName();
     NOActivityStart(bmActivity,activity);
     //传入参数 判断“开始”按钮是否可用
     $location.path('signup');

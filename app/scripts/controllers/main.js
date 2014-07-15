@@ -20,11 +20,9 @@ angular.module('partyBidApp')
 
         if(activities.length == 0)
         {
-            console.log(0);
             $location.path('create');
         }else
         {
-            console.log(1);
             $location.path('activityList');
         }
 

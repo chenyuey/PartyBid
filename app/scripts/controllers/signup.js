@@ -77,18 +77,11 @@ function btnEnd($scope)
 function bmMessageDeal($scope)
 {
     var sms = ShortMessage.getShortMessages();
+    var fromActivityIn = FromActivityIn.fromactivityin();
 
-    var activityMessages = [];
-    for(var i = 0 ; i < sms.length ; i ++)
-    {
-        var fromActivityIn = FromActivityIn.fromactivityin();
-
-        if(fromActivityIn.length != 0 && sms[i].activity == fromActivityIn.name)
-        {
-            activityMessages.unshift(sms[i]);
-        }
-    }
-    $scope.messages = activityMessages;
+    $scope.messages = _.filter(sms,function(sm){
+        return fromActivityIn.length != 0 && sm.activity == fromActivityIn.name;
+    });
 }
 
 function dealRightBtnStatus($scope)
@@ -98,17 +91,24 @@ function dealRightBtnStatus($scope)
     //如果进入的活动是开始报名的活动，显示结束按钮
     if(bmActivity.length != 0 && bmActivity[0].isStart == true)
     {
-        if(fromActivityIn.name == bmActivity[0].name)
-        {
-            $scope.apply_status = '1';
-        }else if(fromActivityIn.name != bmActivity[0].name)
-        {
-            $scope.apply_status = '2';
-        }
+        apply_status_bmActivity_exist(fromActivityIn,bmActivity,$scope);
     }
-
+    apply_status_undefined_deal($scope);
+}
+function apply_status_undefined_deal($scope)
+{
     if($scope.apply_status === undefined)
     {
         $scope.apply_status = '0';
+    }
+}
+function apply_status_bmActivity_exist(fromActivityIn,bmActivity,$scope)
+{
+    if(fromActivityIn.name == bmActivity[0].name)
+    {
+        $scope.apply_status = '1';
+    }else if(fromActivityIn.name != bmActivity[0].name)
+    {
+        $scope.apply_status = '2';
     }
 }
