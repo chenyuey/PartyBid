@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+    grunt.loadNpmTasks('grunt-contrib-jade');
 
   // Configurable paths for the application
   var appConfig = {
@@ -31,8 +32,14 @@ module.exports = function (grunt) {
     watch: {
       bower: {
         files: ['bower.json'],
-        tasks: ['wiredep']
+        tasks: ['wiredep'],
+
       },
+        jade: {
+            files: ['<%= yeoman.app %>/views/*'],
+            tasks: ['jade']
+        },
+
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
@@ -62,6 +69,20 @@ module.exports = function (grunt) {
         ]
       }
     },
+      jade:{
+          activityList: {
+              src: 'app/views/activityList.jade',
+              dest: 'app/views/activityList.html'
+          },
+          signup: {
+              src: 'app/views/signup.jade',
+              dest: 'app/views/signup.html'
+          },
+          create: {
+              src: 'app/views/create.jade',
+              dest: 'app/views/create.html'
+          }
+      },
 
     // The actual grunt server settings
     connect: {

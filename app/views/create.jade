@@ -1,0 +1,11 @@
+header.header 创建活动
+    div.header-left
+        button.btn.btn-primary.btn-lg(ng-show="btnReturnShow" ng-click="btnReturnList()") 返回
+hr
+h5 活动名称
+hr
+input.input-full(ng-model="activityname" ng-change="inputstatus()")
+div
+    h6(ng-show="reminder") 活动名称重复
+hr
+button.btn.btn-primary.btn-lg.btn-block(ng-disabled="btnstatus" ng-click="btnclick()") 创建

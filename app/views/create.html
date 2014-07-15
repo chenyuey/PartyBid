@@ -1,17 +1,1 @@
-<header>
-    创建活动
-
-    <div class="header-left">
-        <button ng-show="btnReturnShow" ng-click="btnReturnList()" class="btn btn-primary btn-lg">返回</button>
-    </div>
-
-</header>
-<hr>
-<h5>活动名称</h5>
-<hr>
-<input class="input-full" ng-model="activityname" ng-change="inputstatus()">
-<hr>
-<div>
-    <h6 ng-show="reminder">活动名称重复</h6>
-</div>
-<input class="btn btn-primary btn-lg btn-block" ng-disabled="btnstatus" type="button"  ng-click="btnclick()" value="创建">
+<header class="header">创建活动<div class="header-left"><button ng-show="btnReturnShow" ng-click="btnReturnList()" class="btn btn-primary btn-lg">返回</button></div></header><hr/><h5>活动名称</h5><hr/><input ng-model="activityname" ng-change="inputstatus()" class="input-full"/><div><h6 ng-show="reminder">活动名称重复</h6></div><hr/><button ng-disabled="btnstatus" ng-click="btnclick()" class="btn btn-primary btn-lg btn-block">创建</button>

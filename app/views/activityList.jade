@@ -1,0 +1,8 @@
+header.header 活动列表
+    div.header-right
+        button.btn.btn-primary.btn-lg(ng-click="btnCreateActivity()") 创建活动
+
+div.wrapper
+    table.table.table-striped(ng-repeat="activity in activities")
+        tr.col-sm-5.col-md-6
+            td(class = "{{activity.status}}" ng-click="jumpToBM(activity)") {{activity.name}}

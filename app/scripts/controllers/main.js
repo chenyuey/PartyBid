@@ -15,8 +15,7 @@ angular.module('partyBidApp')
             'Karma'
         ];
 
-        var activities = JSON.parse(localStorage.getItem('activities'))||[];
-        console.log(activities.length);
+        var activities = Activity.activities;
 
         if(activities.length == 0)
         {
