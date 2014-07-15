@@ -47,15 +47,19 @@ function inputstatus ($scope,activities)
         $scope.btnstatus = true;
     }else
     {
-        for(var i = 0;i < activities.length;i ++)
-        {
-            if(activities[i].name == $scope.activityname)
-            {
-                $scope.reminder = true;
-            }
-        }
-        $scope.btnstatus = false;
+        findRepeatActivityName(activities,$scope);
     }
+}
+
+function findRepeatActivityName(activities,$scope)
+{
+    if(_.find(activities,function(activity){
+        return activity.name == $scope.activityname;
+    }))
+    {
+        $scope.reminder = true;
+    }
+    $scope.btnstatus = false;
 }
 
 function createBtnClick ($scope,$location)

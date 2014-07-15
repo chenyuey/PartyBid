@@ -36,7 +36,12 @@ function jumpToBMLoc ($location,bmActivity,activity)
     //将进入的活动保存到本地
     var formActivity =  {name : activity.name};
     localStorage.setItem("fromActivityIn",JSON.stringify(formActivity));
-
+    NOActivityStart(bmActivity,activity);
+    //传入参数 判断“开始”按钮是否可用
+    $location.path('signup');
+}
+function NOActivityStart(bmActivity,activity)
+{
     //没有任何一个活动开始
     if(bmActivity.length == 0)
     {
@@ -44,25 +49,22 @@ function jumpToBMLoc ($location,bmActivity,activity)
         bmActivity.push(activityinfo);
         localStorage.setItem("bmActivity",JSON.stringify(bmActivity));
     }
-    //传入参数 判断“开始”按钮是否可用
-    $location.path('signup');
 }
 function dealBMActivityBGC(bmActivity,activities)
 {
     if(bmActivity.length != 0 && bmActivity[0].isStart == true)
     {
-        for(var i = 0; i < activities.length; i ++)
-        {
-            console.log(activities[i].name);
-            if(activities[i].name == bmActivity[0].name)
-            {
-                activities[i].status = 'start';
-            }else
-            {
-                activities[i].status = '';
-            }
-
-        }
+        findStartActivity(activities,bmActivity);
     }
     return activities;
+}
+function findStartActivity(activities,bmActivity)
+{
+    var activity = _.find(activities,function(activity){
+        return activity.name == bmActivity[0].name
+    });
+    if(activity)
+    {
+        activity.status = 'start';
+    }
 }
